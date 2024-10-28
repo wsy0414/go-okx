@@ -1,4 +1,4 @@
-# OKX-SDK
+# GO-OKX
 ## Overview
 Want to develop an SDK that allows developers to easily operate OKX's API.
 
