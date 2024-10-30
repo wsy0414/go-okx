@@ -5,8 +5,8 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/wsy0414/okx-api-sdk/internal/client"
-	"github.com/wsy0414/okx-api-sdk/internal/model"
+	"github.com/wsy0414/go-okx/internal/client"
+	"github.com/wsy0414/go-okx/internal/model"
 )
 
 func GetBalanceFromExchangeAccount() {

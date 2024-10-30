@@ -1,4 +1,4 @@
-module github.com/wsy0414/okx-api-sdk
+module github.com/wsy0414/go-okx
 
 go 1.22.6
 

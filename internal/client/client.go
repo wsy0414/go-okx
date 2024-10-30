@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/wsy0414/okx-api-sdk/internal/util"
+	"github.com/wsy0414/go-okx/internal/util"
 )
 
 const OKX_HEADER_ACCESS_KEY = "OK-ACCESS-KEY"
