@@ -1,14 +1,17 @@
 package okx
 
-const (
-	ACCOUNT_CONFIG = "/api/v5/account/config"
-)
+const OKX_HEADER_ACCESS_KEY = "OK-ACCESS-KEY"
+const OKX_HEADER_ACCESS_SIGN = "OK-ACCESS-SIGN"
+const OKX_HEADER_ACCESS_TIMESTAMP = "OK-ACCESS-TIMESTAMP"
+const OKX_HEADER_ACCESS_PASSPHRASE = "OK-ACCESS-PASSPHRASE"
+const domain = "https://www.okx.com"
+
+type InstrumentType string
 
 const (
-	ORDER_BOOK_MARKET_DATA_TICKERS         = "/api/v5/market/tickers"
-	ORDER_BOOK_MARKET_DATA_TICKER          = "/api/v5/market/ticker"
-	ORDER_BOOK_MARKET_DATA_ORDER_BOOK      = "/api/v5/market/books"
-	ORDER_BOOK_MARKET_DATA_ORDER_BOOK_FULL = "/api/v5/market/books-full"
-	ORDER_BOOK_MARKET_DATA_CANDLES         = "/api/v5/market/candles"
-	ORDER_BOOK_MARKET_DATA_CANDLES_HISTORY = "/api/v5/market/history-candles"
+	Spot    InstrumentType = "SPOT"
+	Margin  InstrumentType = "MARGIN"
+	Swap    InstrumentType = "SWAP"
+	Futures InstrumentType = "FUTURES"
+	Option  InstrumentType = "OPTION"
 )
