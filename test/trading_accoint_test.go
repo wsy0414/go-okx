@@ -1,7 +1,6 @@
 package test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/go-playground/assert/v2"
@@ -10,9 +9,9 @@ import (
 
 func TestGetInstruments(t *testing.T) {
 	okxClient := okx.NewOkxClient("{YOUR_ACCESS_KEY}", "{YOUR_SECRET_KEY}", "{YOUR_PASSPHRASE}")
-	result, err := okxClient.GetInstruments(okx.Swap, nil, nil, nil)
+	result, err := okxClient.GetInstruments(okx.Spot, nil, nil, nil)
 	assert.Equal(t, err, nil)
-	fmt.Println(result)
+	assert.NotEqual(t, len(result), 0)
 }
 
 func TestGetBalance(t *testing.T) {
@@ -20,5 +19,5 @@ func TestGetBalance(t *testing.T) {
 	ccy := "USDT"
 	result, err := okxClient.GetBalance(&ccy)
 	assert.Equal(t, err, nil)
-	fmt.Println(result)
+	assert.NotEqual(t, len(*result), 0)
 }

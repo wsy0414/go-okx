@@ -3,9 +3,11 @@ package okx
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strings"
 	"time"
 
@@ -40,12 +42,16 @@ func (client *OkxClient) get(path string, params *url.Values, resBody any) error
 	return nil
 }
 
-func (client *OkxClient) sendRequest(method string, url *url.URL, reqBody []byte, resBody any) error {
-	req, err := http.NewRequest(method, url.String(), bytes.NewBuffer(reqBody))
+func (client *OkxClient) sendRequest(method string, url *url.URL, reqBody any, resBody any) error {
+	b, err := json.Marshal(reqBody)
 	if err != nil {
 		return err
 	}
-	client.setDefaultHeader(&req.Header, method, strings.Replace(url.String(), "domain", "", -1), reqBody)
+	req, err := http.NewRequest(method, url.String(), bytes.NewBuffer(b))
+	if err != nil {
+		return err
+	}
+	client.setDefaultHeader(&req.Header, method, strings.Replace(url.String(), domain, "", -1), reqBody)
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
@@ -58,8 +64,14 @@ func (client *OkxClient) sendRequest(method string, url *url.URL, reqBody []byte
 	}
 	defer res.Body.Close()
 
-	if err = json.Unmarshal(data, &resBody); err != nil {
+	if err = json.Unmarshal(data, resBody); err != nil {
 		return err
+	}
+
+	code := reflect.ValueOf(resBody).Elem().FieldByName("Code")
+	msg := reflect.ValueOf(resBody).Elem().FieldByName("Msg")
+	if code.String() != "0" {
+		return errors.New(msg.String())
 	}
 
 	return err

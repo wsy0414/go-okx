@@ -25,26 +25,26 @@ func (client *OkxClient) GetInstruments(instType InstrumentType, uly *string, in
 		param.Set("instId", *instId)
 	}
 
-	result := []InstumentResponse{}
-	err := client.get("api/v5/account/instruments", nil, result)
+	result := &OkxResponse[[]InstumentResponse]{}
+	err := client.get("api/v5/account/instruments", &param, result)
 	if err != nil {
 		return nil, err
 	}
 
-	return result, nil
+	return result.Data, nil
 }
 
-func (client *OkxClient) GetBalance(ccy *string) (*BalanceResponse, error) {
+func (client *OkxClient) GetBalance(ccy *string) (*[]BalanceResponse, error) {
 	param := url.Values{}
 	if ccy != nil {
 		param.Set("ccy", *ccy)
 	}
 
-	result := &BalanceResponse{}
+	result := &OkxResponse[[]BalanceResponse]{}
 	err := client.get("api/v5/account/balance", &param, result)
 	if err != nil {
 		return nil, err
 	}
 
-	return result, nil
+	return &result.Data, nil
 }
